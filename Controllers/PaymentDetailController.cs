@@ -90,7 +90,6 @@ namespace CoreApp.Controllers
             //{
             //    return BadRequest();
             //}
-
             _context.Entry(paymentDetail).State = EntityState.Modified;
 
             try
@@ -108,7 +107,6 @@ namespace CoreApp.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -119,7 +117,6 @@ namespace CoreApp.Controllers
         {
             _context.PaymentDetails.Add(paymentDetail);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetPaymentDetail", new { id = paymentDetail.PaymentDetailId }, paymentDetail);
         }
 

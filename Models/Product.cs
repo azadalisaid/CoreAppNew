@@ -123,10 +123,7 @@ namespace CoreApp.Models
     {
         public int CategorySearch { get; set; }
         public int SubCategorySearch { get; set; }
-
         public string ProductCodeSearch { get; set; }
-
-
     }
 
     public class productStockList
@@ -134,24 +131,14 @@ namespace CoreApp.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductCode { get; set; }
-
         public string Description { get; set; }
-
         public byte[] Photo { get; set; }
-
-        public decimal  TotalQuantity { get; set; }
-
-
+        public decimal TotalQuantity { get; set; }
         public decimal TotalAmount { get; set; }
-
         public decimal Quantity { get; set; }
-
         public decimal ActualQuantity { get; set; }
-
         public decimal ActualAmount { get; set; }
-
-
-       public decimal Price { get; set; }
+        public decimal Price { get; set; }
     }
 
 

@@ -13,7 +13,6 @@ namespace CoreApp.Models
     {
         [Key]
         public int id { get; set; }
-
         [Column(TypeName = "nvarchar(100)")]
         public string name { get; set; }
 

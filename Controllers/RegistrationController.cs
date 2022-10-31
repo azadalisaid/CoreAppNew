@@ -21,7 +21,6 @@ namespace CoreApp.Controllers
         public RegistrationController(PaymentDetailContext context)
         {
             _context = context;
-
         }
 
         // GET: api/PaymentDetail
@@ -29,12 +28,10 @@ namespace CoreApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Registration>>> GetUsers()
         {
-           
-                return await (from c in _context.Registrations
-                              join d in _context.Countries on c.CountryId equals d.CountryId
-                              join e in _context.States on c.StateId equals e.StateId
-                              select c).ToListAsync();
-           
+            return await (from c in _context.Registrations
+                          join d in _context.Countries on c.CountryId equals d.CountryId
+                          join e in _context.States on c.StateId equals e.StateId
+                          select c).ToListAsync();
         }
 
         [Route("GetStates")]
@@ -57,12 +54,10 @@ namespace CoreApp.Controllers
         public async Task<ActionResult<Registration>> GetUser(int id)
         {
             var registration = await _context.Registrations.FindAsync(id);
-
             if (registration == null)
             {
                 return NotFound();
             }
-
             return registration;
         }
 
@@ -105,7 +100,6 @@ namespace CoreApp.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -113,7 +107,7 @@ namespace CoreApp.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Route("InsertUser")]
         [HttpPost]
-        public async Task<ActionResult<Registration>> Registration([FromForm]Registration register)
+        public async Task<ActionResult<Registration>> Registration([FromForm] Registration register)
         {
             if (register.PhotoFile != null)
             {
@@ -130,7 +124,6 @@ namespace CoreApp.Controllers
             //var file = Request.Form.Files[0];
             _context.Registrations.Add(register);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetUsers", new { id = register.id }, register);
         }
 
@@ -143,10 +136,8 @@ namespace CoreApp.Controllers
             {
                 return NotFound();
             }
-
             _context.Registrations.Remove(registration);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 

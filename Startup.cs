@@ -33,7 +33,7 @@ namespace CoreApp
             //{
             //    c.AddPolicy("AllowOrigin", options => options.WithOrigins("http://localhost:4200","http://localhost:89"));
             //});
-           // services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null).SetCompatibilityVersion(CompatibilityVersion.Latest);
+            // services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null).SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -54,9 +54,7 @@ namespace CoreApp
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreApp v1"));
             }
-
             app.UseRouting();
-
             app.UseAuthorization();
             app.UseCors(options=>options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             //app.UseCors(options => options.WithOrigins("http://localhost:4200", "http://localhost:89").AllowAnyMethod().AllowAnyHeader());

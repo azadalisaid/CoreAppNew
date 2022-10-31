@@ -23,28 +23,17 @@ namespace CoreApp.Models
 
         [Column(TypeName = "nvarchar(3)")]
         public string SecurityCode { get; set; }
-
         public int CardTypeId { get; set; }
     }
 
     public class PaymentDetailList
     {
-       
         public int PaymentDetailId { get; set; }
-
         public string CardOwnerName { get; set; }
-
-       
         public string CardNumber { get; set; }
-
-        
         public string ExpirationDate { get; set; }
-
-        
         public string SecurityCode { get; set; }
-
         public int CardTypeId { get; set; }
-
         public string CardTypeName { get; set; }
     }
 

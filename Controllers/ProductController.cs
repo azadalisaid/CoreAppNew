@@ -35,7 +35,6 @@ namespace CoreApp.Controllers
                           join d in _context.Categories on c.CategoryId equals d.CategoryId
                           join e in _context.SubCategories on c.SubCategoryId equals e.SubCategoryId
                           join f in _context.QuantityTypes on c.QuantityTypeId equals f.QuantityTypeId
-                          
                           select c).ToListAsync();
 
         }
@@ -65,19 +64,58 @@ namespace CoreApp.Controllers
                           join e in _context.SubCategories on c.SubCategoryId equals e.SubCategoryId
                           join f in _context.QuantityTypes on c.QuantityTypeId equals f.QuantityTypeId
                           join g in _context.ProductStocks on c.ProductId equals g.ProductId into gc
-                          from gcprod in gc.DefaultIfEmpty()
+                          from gc_ in gc.DefaultIfEmpty()
                           where (c.CategoryId == productSearch.CategorySearch || productSearch.CategorySearch == 0)
                           && (c.SubCategoryId == productSearch.SubCategorySearch || productSearch.SubCategorySearch == 0)
                           && (c.ProductCode.Contains(productSearch.ProductCodeSearch) || productSearch.ProductCodeSearch == "")
-                          group gcprod by new { c.ProductId, c.ProductCode, c.Name,c.photo,c.Description,c.Price } into h
+                          group gc_ by new { c.ProductId, c.ProductCode, c.Name,c.photo,c.Description,c.Price } into h
                           select new productStockList { ProductId = h.Key.ProductId,ProductCode=h.Key.ProductCode,
-                          ProductName=h.Key.Name,Photo=h.Key.photo,
+                          ProductName=h.Key.Name,
+                              Photo =h.Key.photo,
                               TotalQuantity = h.Sum(g=>g.Quntity),
                               TotalAmount = h.Sum(g => g.Amount),
                               Description=h.Key.Description,
                               Quantity=0,
                               Price=Convert.ToDecimal(h.Key.Price),
                               ActualQuantity= h.Sum(g => g.Quntity),
+                              ActualAmount = h.Sum(g => g.Amount),
+                          }).ToListAsync();
+
+
+        }
+
+
+        [Route("ProductReport")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<productStockList>>> ProductReport(int CategorySearch, int SubCategorySearch, string ProductCodeSearch="")
+        {
+            //ProductSearch productSearch1 = new ProductSearch();
+            //productSearch1.CategorySearch = CategorySearch;
+            //productSearch1.SubCategorySearch = SubCategorySearch;
+            //productSearch1.ProductCodeSearch = ProductCodeSearch;
+
+            return await (from c in _context.Products
+                          join d in _context.Categories on c.CategoryId equals d.CategoryId
+                          join e in _context.SubCategories on c.SubCategoryId equals e.SubCategoryId
+                          join f in _context.QuantityTypes on c.QuantityTypeId equals f.QuantityTypeId
+                          join g in _context.ProductStocks on c.ProductId equals g.ProductId into gc
+                          from gcprod in gc.DefaultIfEmpty()
+                          where (c.CategoryId == CategorySearch || CategorySearch == 0)
+                          && (c.SubCategoryId == SubCategorySearch || SubCategorySearch == 0)
+                          && (c.ProductCode.Contains(ProductCodeSearch) || ProductCodeSearch == "")
+                          group gcprod by new { c.ProductId, c.ProductCode, c.Name, c.photo, c.Description, c.Price } into h
+                          select new productStockList
+                          {
+                              ProductId = h.Key.ProductId,
+                              ProductCode = h.Key.ProductCode,
+                              ProductName = h.Key.Name,
+                              Photo =h.Key.photo,
+                              TotalQuantity = h.Sum(g => g.Quntity),
+                              TotalAmount = h.Sum(g => g.Amount),
+                              Description = h.Key.Description,
+                              Quantity = 0,
+                              Price = Convert.ToDecimal(h.Key.Price),
+                              ActualQuantity = h.Sum(g => g.Quntity),
                               ActualAmount = h.Sum(g => g.Amount),
                           }).ToListAsync();
 

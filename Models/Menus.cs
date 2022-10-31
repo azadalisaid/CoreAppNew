@@ -11,18 +11,15 @@ namespace CoreApp.Models
     {
         [Key]
         public int MenuId { get; set; }
-        
         [Column(TypeName ="varchar(100)")]
         public string Name { get; set; }
-
         [Column(TypeName = "varchar(100)")]
         public string Path { get; set; }
     }
 
     public class Routes
     {
-        public string Path {get;set; }
-
+        public string Path { get; set; }
         public string Component { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using CoreApp.Models;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Controllers
 {
@@ -35,12 +35,10 @@ namespace CoreApp.Controllers
         public async Task<ActionResult<Menus>> GetMenus(int id)
         {
             var menus = await _context.Menuss.FindAsync(id);
-
             if (menus == null)
             {
                 return NotFound();
             }
-
             return menus;
         }
 
@@ -53,9 +51,7 @@ namespace CoreApp.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(menus).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -71,7 +67,6 @@ namespace CoreApp.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -82,7 +77,6 @@ namespace CoreApp.Controllers
         {
             _context.Menuss.Add(menus);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetMenus", new { id = menus.MenuId }, menus);
         }
 
@@ -102,7 +96,7 @@ namespace CoreApp.Controllers
             return NoContent();
         }
 
-        private bool MenusExists(int id)
+        private bool MenusExistsss(int id)
         {
             return _context.Menuss.Any(e => e.MenuId == id);
         }
