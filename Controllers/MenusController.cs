@@ -96,7 +96,7 @@ namespace CoreApp.Controllers
             return NoContent();
         }
 
-        private bool MenusExistsss(int id)
+        private bool MenusExistss(int id)
         {
             return _context.Menuss.Any(e => e.MenuId == id);
         }
